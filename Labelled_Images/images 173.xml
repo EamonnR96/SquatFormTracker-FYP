@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>images 173.jpg</filename>
+	<path>/home/eamonn/Desktop/images/images 173.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>225</width>
+		<height>225</height>
+		<depth>1</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Gym_Plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>28</xmin>
+			<ymin>31</ymin>
+			<xmax>194</xmax>
+			<ymax>194</ymax>
+		</bndbox>
+	</object>
+</annotation>

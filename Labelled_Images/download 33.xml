@@ -1,0 +1,38 @@
+<annotation>
+	<folder>images</folder>
+	<filename>download 33.jpg</filename>
+	<path>/home/eamonn/Desktop/images/download 33.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>303</width>
+		<height>166</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Gym_Plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>73</xmin>
+			<ymin>72</ymin>
+			<xmax>111</xmax>
+			<ymax>119</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>Gym_Plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>168</xmin>
+			<ymin>83</ymin>
+			<xmax>211</xmax>
+			<ymax>135</ymax>
+		</bndbox>
+	</object>
+</annotation>

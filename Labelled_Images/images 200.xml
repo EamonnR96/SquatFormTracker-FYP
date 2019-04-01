@@ -1,0 +1,26 @@
+<annotation>
+	<folder>images</folder>
+	<filename>images 200.jpg</filename>
+	<path>/home/eamonn/Desktop/images/images 200.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>224</width>
+		<height>225</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Gym_Plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>6</xmin>
+			<ymin>6</ymin>
+			<xmax>223</xmax>
+			<ymax>222</ymax>
+		</bndbox>
+	</object>
+</annotation>

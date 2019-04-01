@@ -1,0 +1,38 @@
+<annotation>
+	<folder>test</folder>
+	<filename>download 21.jpg</filename>
+	<path>/home/eamonn/FYP/images/test/download 21.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>209</width>
+		<height>241</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Gym_Plates</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>9</xmin>
+			<ymin>13</ymin>
+			<xmax>32</xmax>
+			<ymax>62</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>Gym_Plates</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>181</xmin>
+			<ymin>12</ymin>
+			<xmax>201</xmax>
+			<ymax>64</ymax>
+		</bndbox>
+	</object>
+</annotation>

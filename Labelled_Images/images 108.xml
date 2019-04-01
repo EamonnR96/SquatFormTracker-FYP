@@ -1,0 +1,38 @@
+<annotation>
+	<folder>images</folder>
+	<filename>images 108.jpg</filename>
+	<path>/home/eamonn/Desktop/images/images 108.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>317</width>
+		<height>159</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Gym_Plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>24</xmin>
+			<ymin>10</ymin>
+			<xmax>168</xmax>
+			<ymax>152</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>Gym_Plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>185</xmin>
+			<ymin>6</ymin>
+			<xmax>298</xmax>
+			<ymax>151</ymax>
+		</bndbox>
+	</object>
+</annotation>

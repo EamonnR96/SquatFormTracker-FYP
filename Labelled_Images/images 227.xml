@@ -1,0 +1,38 @@
+<annotation>
+	<folder>train</folder>
+	<filename>images 227.jpg</filename>
+	<path>/home/eamonn/FYP/images/train/images 227.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>310</width>
+		<height>163</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>Gym_Plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>76</xmin>
+			<ymin>44</ymin>
+			<xmax>104</xmax>
+			<ymax>86</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>Gym_Plate</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>189</xmin>
+			<ymin>33</ymin>
+			<xmax>215</xmax>
+			<ymax>79</ymax>
+		</bndbox>
+	</object>
+</annotation>
