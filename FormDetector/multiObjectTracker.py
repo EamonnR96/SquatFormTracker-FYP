@@ -4,7 +4,6 @@ import cv2
 import numpy as np
 from set import Set
 from imageRotater import ImageRotater as IR
-import time
 
 class MultiTracker(object):
     def __init__(self, gymObjects, videoPath, classifier):
@@ -36,13 +35,36 @@ class MultiTracker(object):
                 value['Location'] = self.getAccurateLock(frame, value['Location'],
                                                          self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
             boundingBoxes.append(value['Location'])
-        # while True:
-        #     boundingBox = cv2.selectROI('MultiTracker', frame)
-        #     boundingBoxes.append(boundingBox)
             k = cv2.waitKey(0) & 0xFF
             if (k == 113):  # q is pressed
                 break
         return boundingBoxes
+
+    def getAccurateLock(self, frame, box, width):
+        bbCentre = self.findCentre(box)
+        bbWidth = int(box[2])
+        bbHeight = int(box[3])
+        y1 = bbCentre[1] - bbHeight if (bbCentre[1] - bbHeight) > 0 else 0
+        x1 = bbCentre[0] - bbWidth if (bbCentre[0] - bbWidth) > 0 else 0
+
+        cropped = frame[y1:bbCentre[1] + bbHeight, x1:bbCentre[0] + bbWidth]
+        imgray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
+        circles = cv2.HoughCircles(imgray, cv2.HOUGH_GRADIENT, 1.75, width, 30, 500, int(0.2*bbHeight), int(0.3*bbHeight))
+        if circles is not None:
+            circles = np.round(circles[0, :]).astype("int")
+            for (x, y, r) in circles:
+                cv2.circle(cropped, (x, y), r, (0, 255, 0), 4)
+                if (bbCentre[0] - bbWidth) > 0:
+                    x = x + (bbCentre[0] - bbWidth)
+                if (bbCentre[1] - bbHeight) > 0:
+                    y = y + (bbCentre[1] - bbHeight)
+                cv2.circle(frame, (x, y), r, (0, 255, 0), 4)
+            return x-r, y-r, 2*r, 2*r
+
+    def findCentre(self, newbox):
+        centreX = int(newbox[0]) + int(newbox[2] / 2)
+        centreY = int(newbox[1]) + int(newbox[3] / 2)
+        return centreX, centreY
 
     def createCSRTTracker(self):
         frame = self.readVideoFrames()
@@ -57,8 +79,6 @@ class MultiTracker(object):
         set = Set(self.cap, self.classifier)
         multiTracker = self.createCSRTTracker()
         frameNo, frameNum = 0, 0
-        # fgbg = cv2.createBackgroundSubtractorMOG2()
-        # startTime = time.time()
         while self.cap.isOpened():
             success, frame = self.cap.read()
             if not success:
@@ -68,8 +88,7 @@ class MultiTracker(object):
             # get updated location of objects in subsequent frames
             success, boxes = multiTracker.update(frame)
             set.processNewCoordinate(frame, boxes, frameNum)
-            #
-            # set = Set(frame, newbox)
+
             # draw tracked objects
             for i, newbox in enumerate(boxes):
                 if i==0:
@@ -84,10 +103,6 @@ class MultiTracker(object):
                     cv2.rectangle(frame, p1, p2, (0,255,0), 2, 1)
                     self.footWearPositions.append(self.findCentre(newbox))
 
-            # self.findBarCentre(frame, boxes[0], self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-            # self.matchBBCentre(frame, boxes[0], width)
-            # self.subtractBackground(frame, boxes[0], fgbg, width)
-            # self.threshold(frame, boxes[0], bbCentre, width)
 
             frameNum +=1
             # if frameNum % 100 is 0:
@@ -106,19 +121,21 @@ class MultiTracker(object):
             # show frame
             cv2.imshow('MultiTracker', frame)
 
-
             # quit on ESC button
             if cv2.waitKey(1) & 0xFF == 27:  # Esc pressed
                 break
-        # self.measureFrameRate(startTime)
+
         set.createPlot()
         return (self.barbellPositions, self.footWearPositions)
-    #
-    # def measureFrameRate(self, startTime):
-    #     frames = self.cap.get(cv2.CAP_PROP_FRAME_COUNT)
-    #     endTime = time.time()
-    #     timeTaken = endTime - startTime
-    #     print(frames/(timeTaken))
+
+'''
+//ALL CODE FROM HERE WAS EITHER USED IN TESTING OR IN ATTEMPT TO MAKE SCALE WORK///
+    
+    def measureFrameRate(self, startTime):
+        frames = self.cap.get(cv2.CAP_PROP_FRAME_COUNT)
+        endTime = time.time()
+        timeTaken = endTime - startTime
+        print(frames/(timeTaken))
 
     def driftChecker(self, frame, box):
         width = self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)
@@ -150,32 +167,6 @@ class MultiTracker(object):
         areaOfUnion = (area1+area2) - areaOfOverlap
         return areaOfUnion
 
-    def findCentre(self, newbox):
-        centreX = int(newbox[0]) + int(newbox[2] / 2)
-        centreY = int(newbox[1]) + int(newbox[3] / 2)
-        return centreX, centreY
-
-    def getAccurateLock(self, frame, box, width):
-        bbCentre = self.findCentre(box)
-        bbWidth = int(box[2])
-        bbHeight = int(box[3])
-        y1 = bbCentre[1] - bbHeight if (bbCentre[1] - bbHeight) > 0 else 0
-        x1 = bbCentre[0] - bbWidth if (bbCentre[0] - bbWidth) > 0 else 0
-
-        cropped = frame[y1:bbCentre[1] + bbHeight, x1:bbCentre[0] + bbWidth]
-        imgray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
-        circles = cv2.HoughCircles(imgray, cv2.HOUGH_GRADIENT, 1.75, width, 30, 500, int(0.2*bbHeight), int(0.3*bbHeight))
-        if circles is not None:
-            circles = np.round(circles[0, :]).astype("int")
-            for (x, y, r) in circles:
-                cv2.circle(cropped, (x, y), r, (0, 255, 0), 4)
-                if (bbCentre[0] - bbWidth) > 0:
-                    x = x + (bbCentre[0] - bbWidth)
-                if (bbCentre[1] - bbHeight) > 0:
-                    y = y + (bbCentre[1] - bbHeight)
-                cv2.circle(frame, (x, y), r, (0, 255, 0), 4)
-            return x-r, y-r, 2*r, 2*r
-
     def threshold(self, frame, box, centre, width):
         imgray = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         centreThresh = imgray[centre[1], centre[0]]
@@ -190,7 +181,6 @@ class MultiTracker(object):
         for number in list:
             total += number
         return int(total/len(list))
-
 
     def findBarCentre(self, frame, box, width):
         bbCentre = self.findCentre(box)
@@ -245,3 +235,4 @@ class MultiTracker(object):
         # cv2.imshow('frame', cropped)
         # cv2.imshow('fgmask', fgmask)
         self.findBarCentre(frame, box, fgmask, width)
+'''

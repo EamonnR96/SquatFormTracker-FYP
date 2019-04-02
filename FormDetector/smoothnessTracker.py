@@ -3,7 +3,6 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import scipy.signal as sig
 import math
-import numpy as np
 
 class SmoothnessTracker(object):
     def __init__(self, initY, frameRate, totalFrames):

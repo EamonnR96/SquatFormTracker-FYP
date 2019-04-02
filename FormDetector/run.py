@@ -47,15 +47,15 @@ videoList = [
     # "Barbell Back Squats (Side View).mp4"
     #
     # "Test1(GoodForm).mp4",
-    # "Test2(GoodForm).mp4",
+    "Test2(GoodForm).mp4",
     # "Test11(AllGoodBFrame).mp4",
-    # "Test12(6Good).mp4",
-    #
+    "Test12(6Good).mp4",
+
     # "Test5(3Good3Struggle).mp4",
-    # "Test6(1GoodRestStruggle).mp4",
-    # "Test7(HalfReps).mp4",
+    "Test6(1GoodRestStruggle).mp4",
+    "Test7(HalfReps).mp4",
     # "Test8(PoorForm).mp4",
-    # "Test10(3Good3Bad).mp4"
+    "Test10(3Good3Bad).mp4"
     # "Detector/DLTest.mp4"
     # "Train1(1Good5Bad).mp4",
     # "Train2(1Good6Bad).mp4"
@@ -75,11 +75,10 @@ for video in videoList:
                   #                   'Frame': 0}
                       }
 
-
     classifier = Classifier()
-    classifier.createSVMClassifier()
+    classifier.createDecisionTreeClassifier()
     god = GymObjectDetector(gymObjects, videoPath)
     trackedObjects = god.getNormalisedObjectLocations()
-    kcfTracker = MultiTracker(gymObjects, videoPath, classifier)
-    barbellPosition, footwearPosition = kcfTracker.displayAndTrack()
+    CSRTTracker = MultiTracker(gymObjects, videoPath, classifier)
+    barbellPosition, footwearPosition = CSRTTracker.displayAndTrack()
 

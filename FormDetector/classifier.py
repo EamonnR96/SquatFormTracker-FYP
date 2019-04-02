@@ -1,26 +1,18 @@
-import numpy
 import pandas
-from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
-from sklearn.naive_bayes import GaussianNB
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report, confusion_matrix
-
 
 class Classifier(object):
     def __init__(self):
         self.trainingFile = "training.csv"
         self.headers = []
         self.dataSet = None
-        self.gaussianClassifier = None
+        self.CARTClassifier = None
 
-    def createSVMClassifier(self):
+    def createDecisionTreeClassifier(self):
         self.seperateCSVFile()
         XTrain, yTrain, = self.splitTestAndTrain()
-        self.gaussianClassifier= DecisionTreeClassifier()
-        self.gaussianClassifier.fit(XTrain, yTrain)
-        # self.testClassifier(XTest, yTest)
-
+        self.CARTClassifier = DecisionTreeClassifier()
+        self.CARTClassifier.fit(XTrain, yTrain)
 
     def seperateCSVFile(self):
         readCSV = pandas.read_csv(self.trainingFile, header=0)
@@ -31,17 +23,11 @@ class Classifier(object):
     def splitTestAndTrain(self):
         X = self.dataSet.drop('FormQuality', axis =1)
         y = self.dataSet['FormQuality']
-        XTrain, XTest, yTrain, yTest = train_test_split(X, y, test_size=0.1)
         return X, y
-
-    def testClassifier(self, XTest, yTest):
-        yPred = self.gaussianClassifier.predict(XTest)
-        print(confusion_matrix(yTest, yPred))
-        print(classification_report(yTest, yPred))
 
     def analyseRepetition(self, normalisedRep):
         XTest = self.convertRep(normalisedRep)
-        yPred = self.gaussianClassifier.predict(XTest)
+        yPred = self.CARTClassifier.predict(XTest)
         return yPred
 
     def convertRep(self, normalisedRep):
@@ -60,7 +46,3 @@ class Classifier(object):
     def convertToDataFrame(self, headers, data):
         df = pandas.DataFrame([data], columns=headers)
         return df
-
-
-
-

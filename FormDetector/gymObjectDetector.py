@@ -194,8 +194,6 @@ class GymObjectDetector(object):
             else:
                 width = self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)  # float
                 height = self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)
-            # width = self.cap.get(cv2.CAP_PROP_FRAME_WIDTH)  # float
-            # height = self.cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
             normalisedCoordinates[0] = coordinates[1] * width  # x top left
             normalisedCoordinates[1] = coordinates[0] * height #y top left
             ymax = coordinates[2] * height
