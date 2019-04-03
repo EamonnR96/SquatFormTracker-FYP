@@ -1,1 +1,2 @@
 # SquatFormTracker-FYP
+### Installation Guide:
